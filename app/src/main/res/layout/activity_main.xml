@@ -24,6 +24,12 @@
             android:onClick="onDiDiClk"
             android:text="滴滴倒计时"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onPropAnimClk"
+            android:text="属性动画"/>
+
 
     </LinearLayout>
 

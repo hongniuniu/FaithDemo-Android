@@ -25,6 +25,10 @@
             android:name=".activity.DiDiActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".activity.PropAnimActivity"
+            android:screenOrientation="portrait"/>
+
         <receiver
             android:name=".recivier.LocalRecivier"
             android:exported="true">

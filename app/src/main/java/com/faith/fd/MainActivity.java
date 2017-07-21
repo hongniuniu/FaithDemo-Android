@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.faith.fd.activity.DiDiActivity;
+import com.faith.fd.activity.PropAnimActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     public void onDiDiClk(View v) {
         Log.d(TAG,"onDiDiClk...");
         startActivity(new Intent(this, DiDiActivity.class));
+    }
+
+    public void onPropAnimClk(View v){
+        startActivity(new Intent(this, PropAnimActivity.class));
     }
 
 }
