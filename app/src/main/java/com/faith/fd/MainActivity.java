@@ -8,6 +8,8 @@ import android.view.View;
 
 import com.faith.fd.activity.DiDiActivity;
 import com.faith.fd.activity.PropAnimActivity;
+import com.faith.fd.activity.bitmap.LoadBitmapActivity;
+import com.faith.fd.activity.memoryleak.MemoryActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPropAnimClk(View v){
         startActivity(new Intent(this, PropAnimActivity.class));
+    }
+
+
+    public void onMemoryClk(View v){
+        startActivity(new Intent(this, MemoryActivity.class));
+    }
+
+    public void onBmpClk(View v){
+        startActivity(new Intent(this, LoadBitmapActivity.class));
     }
 
 }
