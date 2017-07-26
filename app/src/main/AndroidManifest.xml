@@ -3,6 +3,7 @@
           package="com.faith.fd">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:name=".FaithApplication"
@@ -31,11 +32,27 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".activity.anim.SmallBallActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".activity.memoryleak.MemoryActivity"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.bitmap.LoadBitmapActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.eventdistribute.EventDistributeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.ScrollViewActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.MovieActivity"
             android:screenOrientation="portrait"/>
 
         <receiver

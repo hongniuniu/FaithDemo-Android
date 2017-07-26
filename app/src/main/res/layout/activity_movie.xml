@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.xiaopo.flying.puzzle.SquarePuzzleView
+            android:id="@+id/puzzle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"/>
+
+
+        <TextView
+            android:id="@+id/tv_show_watermark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/puzzle_view"
+            android:layout_alignParentRight="true"
+            android:layout_alignRight="@+id/puzzle_view"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_watermark_bg"
+            android:maxLength="15"
+            android:maxLines="2"
+            android:maxWidth="200dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="@android:color/white"
+            android:textSize="13dp"
+            />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/id_bgBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onBgClk"
+        android:text="导入图片"/>
+
+    <Button
+        android:id="@+id/id_txtBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onTxtClk"
+        android:text="编辑文字"/>
+
+    <Button
+        android:id="@+id/id_compoundClk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onCompoundClk"
+        android:text="开始合成"/>
+
+</LinearLayout>
+
+
