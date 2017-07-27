@@ -20,14 +20,14 @@ public class Border {
 	Line lineRight;
 	Line lineBottom;
 
-	Border(Border src) {
+	public Border(Border src) {
 		lineLeft = src.lineLeft;
 		lineTop = src.lineTop;
 		lineRight = src.lineRight;
 		lineBottom = src.lineBottom;
 	}
 
-	Border(RectF baseRect) {
+	public Border(RectF baseRect) {
 		setBaseRect(baseRect);
 	}
 
@@ -46,36 +46,36 @@ public class Border {
 		lineBottom = new Line(three, four);
 	}
 
-	float width() {
+	public float width() {
 		return lineRight.start.x - lineLeft.start.x;
 	}
 
 
-	float height() {
+	public float height() {
 		return lineBottom.start.y - lineTop.start.y;
 	}
 
-	float left() {
+	public float left() {
 		return lineLeft.start.x;
 	}
 
-	float top() {
+	public float top() {
 		return lineTop.start.y;
 	}
 
-	float right() {
+	public float right() {
 		return lineRight.start.x;
 	}
 
-	float bottom() {
+	public float bottom() {
 		return lineBottom.start.y;
 	}
 
-	float centerX() {
+	public float centerX() {
 		return (right() + left()) * 0.5f;
 	}
 
-	float centerY() {
+	public float centerY() {
 		return (bottom() + top()) * 0.5f;
 	}
 
@@ -95,6 +95,9 @@ public class Border {
 		return lineLeft == line || lineTop == line || lineRight == line || lineBottom == line;
 	}
 
+	public boolean contains(Border border) {
+		return lineLeft == border.lineLeft || lineTop == border.lineTop || lineRight == border.lineRight || lineBottom == border.lineBottom;
+	}
 
 	@Override
 	public String toString() {

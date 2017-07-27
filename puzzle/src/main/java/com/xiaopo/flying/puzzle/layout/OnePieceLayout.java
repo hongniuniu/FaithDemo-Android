@@ -27,7 +27,7 @@ public class OnePieceLayout extends NumberPieceLayout {
 				addLine(getOuterBorder(), Line.Direction.HORIZONTAL, 1f / 2);
 				break;
 			case 1:
-				// addLine(getOuterBorder(), Line.Direction.VERTICAL, 1f / 2);
+//				 addLine(getOuterBorder(), Line.Direction.VERTICAL, 1f / 2);
 				break;
 			case 2:
 				addCross(getOuterBorder(), 1f / 2);

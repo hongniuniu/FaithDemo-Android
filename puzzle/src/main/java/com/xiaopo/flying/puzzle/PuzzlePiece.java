@@ -26,6 +26,7 @@ public class PuzzlePiece {
 
 	private boolean mNeedHorizontalFlip = false;
 	private boolean mNeedVerticalFlip = false;
+	private boolean isSel; // 是否选中
 
 	private float mRotation = 0f;
 
@@ -45,7 +46,7 @@ public class PuzzlePiece {
 		return mRotation;
 	}
 
-	void setRotation(float rotation) {
+	public void setRotation(float rotation) {
 		mRotation = rotation;
 	}
 
@@ -53,7 +54,7 @@ public class PuzzlePiece {
 		return mNeedHorizontalFlip;
 	}
 
-	void setNeedHorizontalFlip(boolean needHorizontalFlip) {
+	public void setNeedHorizontalFlip(boolean needHorizontalFlip) {
 		mNeedHorizontalFlip = needHorizontalFlip;
 	}
 
@@ -61,7 +62,7 @@ public class PuzzlePiece {
 		return mNeedVerticalFlip;
 	}
 
-	void setNeedVerticalFlip(boolean needVerticalFlip) {
+	public void setNeedVerticalFlip(boolean needVerticalFlip) {
 		mNeedVerticalFlip = needVerticalFlip;
 	}
 
@@ -69,7 +70,7 @@ public class PuzzlePiece {
 		return mTranslateX;
 	}
 
-	void setTranslateX(float translateX) {
+	public void setTranslateX(float translateX) {
 		mTranslateX = translateX;
 	}
 
@@ -77,7 +78,7 @@ public class PuzzlePiece {
 		return mTranslateY;
 	}
 
-	void setTranslateY(float translateY) {
+	public void setTranslateY(float translateY) {
 		mTranslateY = translateY;
 	}
 
@@ -101,7 +102,7 @@ public class PuzzlePiece {
 		return mScaleFactor;
 	}
 
-	void setScaleFactor(float scaleFactor) {
+	public void setScaleFactor(float scaleFactor) {
 		mScaleFactor = scaleFactor;
 	}
 
@@ -111,6 +112,14 @@ public class PuzzlePiece {
 
 	public void setBorder(Border border) {
 		mBorder = border;
+	}
+
+	public boolean isSel() {
+		return isSel;
+	}
+
+	public void setSel(boolean sel) {
+		isSel = sel;
 	}
 
 	public void draw(Canvas canvas, Paint paint) {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="vn.tungdx.mediapicker"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.CAMERA"/>
+
+	<application>
+		<activity
+			android:name=".activities.MediaPickerActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/MediaPickerTheme"/>
+	</application>
+</manifest>

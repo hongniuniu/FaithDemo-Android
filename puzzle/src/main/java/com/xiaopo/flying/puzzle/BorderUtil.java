@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by snowbean on 16-8-13.
  */
-class BorderUtil {
+public class BorderUtil {
 	private static final String TAG = "BorderUtil";
 
 	/**
@@ -23,7 +23,7 @@ class BorderUtil {
 	 * @param ratio
 	 * @return
 	 */
-	static Line createLine(final Border border, final Line.Direction direction, final float ratio) {
+	public static Line createLine(final Border border, final Line.Direction direction, final float ratio) {
 		// 新增描点对象,2点合成一条线
 		PointF one = new PointF();
 		PointF two = new PointF();
@@ -60,6 +60,12 @@ class BorderUtil {
 		return line;
 	}
 
+	/**
+	 * 根据外部最大的编辑区和线条来裁剪区域
+	 * @param border
+	 * @param line
+	 * @return
+	 */
 	static List<Border> cutBorder(final Border border, final Line line) {
 		List<Border> list = new ArrayList<>();
 		if (line.getDirection() == Line.Direction.HORIZONTAL) {
@@ -339,16 +345,16 @@ class BorderUtil {
 	/**
 	 * create a matrix which let bitmap centerCrop in the border rect
 	 */
-	static Matrix createMatrix(Border border, Bitmap bitmap, float extraSize) {
+	public static Matrix createMatrix(Border border, Bitmap bitmap, float extraSize) {
 		return createMatrix(border, bitmap.getWidth(), bitmap.getHeight(), extraSize);
 	}
 
-	static Matrix createMatrix(Border border, Drawable drawable, float extraSize) {
+	public static Matrix createMatrix(Border border, Drawable drawable, float extraSize) {
 		return createMatrix(border, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), extraSize);
 	}
 
 
-	static Matrix createMatrix(Border border, int width, int height, float extraSize) {
+	public static Matrix createMatrix(Border border, int width, int height, float extraSize) {
 		final RectF rectF = border.getRect();
 
 		Matrix matrix = new Matrix();

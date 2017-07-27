@@ -9,7 +9,8 @@ import android.util.AttributeSet;
  */
 public class SquarePuzzleView extends PuzzleView {
   private int w = -1;
-  private float wRatio = 1f, hRatio = 0.75f;
+//  private float wRatio = 1f, hRatio = 0.75f;
+  private float wRatio = 1f, hRatio = 1f; // 保持正方形1:1比例
 
   public SquarePuzzleView(Context context) {
     super(context);

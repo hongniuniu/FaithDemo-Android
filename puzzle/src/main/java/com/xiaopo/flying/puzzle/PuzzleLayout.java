@@ -68,6 +68,13 @@ public abstract class PuzzleLayout {
 
 	public abstract void layout();
 
+	/**
+	 * 通过线条来收集border数量
+	 * @param border
+	 * @param direction
+	 * @param ratio
+	 * @return
+	 */
 	protected List<Border> addLine(Border border, Line.Direction direction, float ratio) {
 		mBorders.remove(border);
 		Line line = BorderUtil.createLine(border, direction, ratio);
@@ -85,6 +92,7 @@ public abstract class PuzzleLayout {
 	protected void cutBorderEqualPart(Border border, int part, Line.Direction direction) {
 		Border temp = border;
 		for (int i = part; i > 1; i--) {
+			Log.d(TAG,"ratio = " + (float) (i - 1) / i);
 			temp = addLine(temp, direction, (float) (i - 1) / i).get(0);
 		}
 	}

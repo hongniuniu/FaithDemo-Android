@@ -53,7 +53,7 @@ import java.util.List;
  */
 public class MovieActivity extends BaseActivity implements PuzzleView.OnPieceSelectedListener,PuzzleView.OnReplaceListener{
 
-    public static final int PIECE_SIZE = 1;
+    public static final int PIECE_SIZE = 3;
     public static final int THEME_ID = 1;
     // 回调参数
     private static final int SELECT_IMG = 0X001; // 选择图片
@@ -99,8 +99,9 @@ public class MovieActivity extends BaseActivity implements PuzzleView.OnPieceSel
         mPuzzleLayout = PuzzleUtil.getPuzzleLayout(PIECE_SIZE,THEME_ID);
         mPuzzleView = (SquarePuzzleView) findViewById(R.id.puzzle_view);
         mPuzzleView.setPuzzleLayout(mPuzzleLayout);
+        mPuzzleView.setMoveLineEnable(true);
         mPuzzleView.setExtraSize(100);
-        mPuzzleView.setBorderWidth(DensityUtil.dp2px(this,6));
+        mPuzzleView.setBorderWidth(DensityUtil.dp2px(this,3));
         mPuzzleView.setBorderColor(Color.GREEN);
         mPuzzleView.setSelectedBorderColor(ContextCompat.getColor(this,R.color.color_ff0000));
         mPuzzleView.setReplaceListener(this);
@@ -130,9 +131,16 @@ public class MovieActivity extends BaseActivity implements PuzzleView.OnPieceSel
         initImagePicker();
         contralBtnVis(View.GONE);
         mWaterMark.setText("再歪一点");
-        // mPuzzleView中必须要添加piece，否则点击没有效果
-        mPuzzlebeen.add(Puzzlebean.defa(0));
-        mPuzzleView.addPiece(BitmapFactory.decodeResource(getResources(),R.mipmap.template_default_img));
+
+        // 根据板块的个数填充默认图片
+        for (int i = 0; i < mPuzzleLayout.getBorderSize(); i++) {
+            mPuzzlebeen.add(Puzzlebean.defa(i));
+            // mPuzzleView中必须要添加piece，否则点击没有效果
+            mPuzzleView.addPiece(BitmapFactory.decodeResource(getResources(), R.mipmap.template_default_img));
+        }
+        // 为画布添加背景
+        mPuzzleView.setBackgroundResource(R.mipmap.wx_red_package_dialog_bg);
+
     }
 
     /**

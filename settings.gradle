@@ -1,1 +1,1 @@
-include ':app', ':puzzle'
+include ':app', ':puzzle', ':mediapicker'

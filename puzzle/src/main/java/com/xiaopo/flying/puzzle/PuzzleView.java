@@ -123,11 +123,11 @@ public class PuzzleView extends View {
     }
 
     //need in onDraw reset template layout
-    if (mNeedOnDrawResetLayout) {
-      mPuzzleLayout.reset();
-      mPuzzleLayout.setOuterBorder(mBorderRect);
-      mPuzzleLayout.layout();
-    }
+//    if (mNeedOnDrawResetLayout) {
+//      mPuzzleLayout.reset();
+//      mPuzzleLayout.setOuterBorder(mBorderRect);
+//      mPuzzleLayout.layout();
+//    }
 
     //draw piece
     for (int i = 0; i < mPuzzleLayout.getBorderSize(); i++) {
@@ -168,17 +168,19 @@ public class PuzzleView extends View {
     }
 
     //draw selected border
+    Log.d(TAG,"onDraw-->mHandlingPiece = " + mHandlingPiece + "-->mCurrentMode = " + mCurrentMode);
     if (mHandlingPiece != null && mCurrentMode != Mode.SWAP) {
+      Log.d(TAG,"onDraw-->绘制选中border线条...");
       drawSelectedBorder(canvas, mHandlingPiece);
     }
 
-    if (mHandlingPiece != null && mCurrentMode == Mode.SWAP) {
-      mHandlingPiece.draw(canvas, mBitmapPaint, 128);
-
-      if (mReplacePiece != null) {
-        drawSelectedBorder(canvas, mReplacePiece);
-      }
-    }
+//    if (mHandlingPiece != null && mCurrentMode == Mode.SWAP) {
+//      mHandlingPiece.draw(canvas, mBitmapPaint, 128);
+//
+//      if (mReplacePiece != null) {
+//        drawSelectedBorder(canvas, mReplacePiece);
+//      }
+//    }
   }
 
   private void drawSelectedBorder(Canvas canvas, PuzzlePiece piece) {
@@ -197,23 +199,23 @@ public class PuzzleView extends View {
 
     //绘制移动大小的块
     mSelectedBorderPaint.setStyle(Paint.Style.FILL);
-    for (Line line : piece.getBorder().getLines()) {
-      if (mPuzzleLayout.getLines().contains(line)) {
-        if (line.getDirection() == Line.Direction.HORIZONTAL) {
-          canvas.drawRoundRect(
-              line.getCenterBound(mSelectedRect.centerX(), mSelectedRect.width(), mBorderWidth,
-                  line == piece.getBorder().lineTop),
-
-              mBorderWidth * 2, mBorderWidth * 2, mSelectedBorderPaint);
-        } else if (line.getDirection() == Line.Direction.VERTICAL) {
-          canvas.drawRoundRect(
-              line.getCenterBound(mSelectedRect.centerY(), mSelectedRect.height(), mBorderWidth,
-                  line == piece.getBorder().lineLeft),
-
-              mBorderWidth * 2, mBorderWidth * 2, mSelectedBorderPaint);
-        }
-      }
-    }
+//    for (Line line : piece.getBorder().getLines()) {
+//      if (mPuzzleLayout.getLines().contains(line)) {
+//        if (line.getDirection() == Line.Direction.HORIZONTAL) {
+//          canvas.drawRoundRect(
+//              line.getCenterBound(mSelectedRect.centerX(), mSelectedRect.width(), mBorderWidth,
+//                  line == piece.getBorder().lineTop),
+//
+//              mBorderWidth * 2, mBorderWidth * 2, mSelectedBorderPaint);
+//        } else if (line.getDirection() == Line.Direction.VERTICAL) {
+//          canvas.drawRoundRect(
+//              line.getCenterBound(mSelectedRect.centerY(), mSelectedRect.height(), mBorderWidth,
+//                  line == piece.getBorder().lineLeft),
+//
+//              mBorderWidth * 2, mBorderWidth * 2, mSelectedBorderPaint);
+//        }
+//      }
+//    }
     mSelectedBorderPaint.setStyle(Paint.Style.STROKE);
   }
 
@@ -228,7 +230,7 @@ public class PuzzleView extends View {
         mDownY = event.getY();
 
         mHandlingLine = findHandlingLine();
-
+        Log.d(TAG,"onTouchEvent-->mHandlingLine = " + mHandlingLine);
         if (mHandlingLine != null) {
           mCurrentMode = Mode.MOVE;
           mChangedPieces.clear();
@@ -620,6 +622,11 @@ public class PuzzleView extends View {
     mBorderRect.top = getPaddingTop();
     mBorderRect.right = w - getPaddingRight();
     mBorderRect.bottom = h - getPaddingBottom();
+
+//    mBorderRect.left = getPaddingLeft() / 2;
+//    mBorderRect.top = getPaddingTop() / 2;
+//    mBorderRect.right = (w - getPaddingRight()) / 2;
+//    mBorderRect.bottom = (h - getPaddingBottom()) / 2;
 
     if (mPuzzleLayout != null) {
       mPuzzleLayout.setOuterBorder(mBorderRect);

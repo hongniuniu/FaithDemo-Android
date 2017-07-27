@@ -118,6 +118,19 @@
         android:layout_height="wrap_content"
         android:onClick="onMovieClk"
         android:text="视频合成"
+        app:layout_constraintBottom_toTopOf="@+id/button14"
+        app:layout_constraintLeft_toLeftOf="@+id/button14"
+        app:layout_constraintRight_toRightOf="@+id/button14"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"/>
+
+    <Button
+        android:id="@+id/button14"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="onTestClk"
+        android:text="测试"
         app:layout_constraintBottom_toTopOf="@+id/button11"
         app:layout_constraintLeft_toLeftOf="@+id/button11"
         app:layout_constraintRight_toRightOf="@+id/button11"

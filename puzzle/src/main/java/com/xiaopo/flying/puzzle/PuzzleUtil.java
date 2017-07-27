@@ -2,6 +2,8 @@ package com.xiaopo.flying.puzzle;
 
 import com.xiaopo.flying.puzzle.layout.OnePieceLayout;
 import com.xiaopo.flying.puzzle.layout.PuzzleLayoutHelper;
+import com.xiaopo.flying.puzzle.layout.ThreePieceLayout;
+import com.xiaopo.flying.puzzle.layout.TwoPieceLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,10 @@ public class PuzzleUtil {
     switch (borderSize) {
       case 1:
         return new OnePieceLayout(themeId);
-//      case 2:
-//        return new TwoPieceLayout(themeId);
-//      case 3:
-//        return new ThreePieceLayout(themeId);
+      case 2:
+        return new TwoPieceLayout(themeId);
+      case 3:
+        return new ThreePieceLayout(themeId);
 //      case 4:
 //        return new FourPieceLayout(themeId);
 //      case 5:

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.faith.fd.activity.CustomActivity;
 import com.faith.fd.activity.DiDiActivity;
 import com.faith.fd.activity.MovieActivity;
 import com.faith.fd.activity.PropAnimActivity;
@@ -26,27 +27,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDiDiClk(View v) {
-        Log.d(TAG,"onDiDiClk...");
+        Log.d(TAG, "onDiDiClk...");
         startActivity(new Intent(this, DiDiActivity.class));
     }
 
-    public void onPropAnimClk(View v){
+    public void onPropAnimClk(View v) {
         startActivity(new Intent(this, PropAnimActivity.class));
     }
 
-    public void onBallClk(View v){
-        startActivity(new Intent(this,SmallBallActivity.class));
+    public void onBallClk(View v) {
+        startActivity(new Intent(this, SmallBallActivity.class));
     }
 
-    public void onMemoryClk(View v){
+    public void onMemoryClk(View v) {
         startActivity(new Intent(this, MemoryActivity.class));
     }
 
-    public void onBmpClk(View v){
+    public void onBmpClk(View v) {
         startActivity(new Intent(this, LoadBitmapActivity.class));
     }
 
-    public void onSvClk(View v){
+    public void onSvClk(View v) {
         startActivity(new Intent(this, ScrollViewActivity.class));
     }
 
@@ -54,8 +55,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, MovieActivity.class));
     }
 
+    public void onTestClk(View v) {
+        startActivity(new Intent(this, CustomActivity.class));
+    }
+
     public void onEventClk(View v) {
         startActivity(new Intent(this, EventDistributeActivity.class));
     }
+
 
 }
