@@ -1,6 +1,7 @@
 package com.faith.fd.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,7 +11,9 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -23,6 +26,10 @@ import com.xiaopo.flying.puzzle.BorderUtil;
 import com.xiaopo.flying.puzzle.Line;
 import com.xiaopo.flying.puzzle.PuzzlePiece;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,10 +59,12 @@ public class ImgVideoView extends View {
 
     private float mBorderWidth = 4; // 边框的线宽
     private int w = -1;
-    private float wRatio = 1f, hRatio = 1f; // 保持正方形1:1比例
+    private float wRatio = 1f, hRatio = 0.74f; // 保持正方形1:1比例,宽高比800 / 1080
     private int mScreenW; // 屏幕宽
+    private float mViewH; // view的高度
     private float mBaseMaginLft; // 中间块距离左边的数值
     private float mBaseMaginBtm; // 中间块距离底部的数值
+    private float mBigBoderMarginTop; // 最大模块距离顶部的数值
     private RectF mOneRectF; // 区域1
     private RectF mTwoRectF; // 区域2
     private RectF mThreeRectF; // 区域3
@@ -101,8 +110,10 @@ public class ImgVideoView extends View {
     private void init() {
         mHandler = new Handler();
         mScreenW = DensityUtil.getScreenW(mContext);
+        mViewH = mScreenW * hRatio;
         mBaseMaginLft = mScreenW - mScreenW / 2 - DensityUtil.dp2px(mContext, 80);
-        mBaseMaginBtm = mScreenW - mScreenW / 4;
+        mBaseMaginBtm = mViewH - mViewH / 4;
+        mBigBoderMarginTop = DensityUtil.dp2px(mContext, 12);
 
         mBitmapPaint = new Paint();
         mBitmapPaint.setAntiAlias(true);
@@ -123,16 +134,16 @@ public class ImgVideoView extends View {
         mBorderRect = new RectF();
         mSelectedRect = new RectF();
 
-        mOneRectF = new RectF(DensityUtil.dp2px(mContext, 20) + DensityUtil.dp2px(mContext, 2),
+        mOneRectF = new RectF(DensityUtil.dp2px(mContext, 20) + mBigBoderMarginTop,
                 DensityUtil.dp2px(mContext, 40),
                 mScreenW / 4 + DensityUtil.dp2px(mContext, 10),
                 mBaseMaginBtm - DensityUtil.dp2px(mContext, 20));
         mTwoRectF = new RectF(mOneRectF.right,
-                mOneRectF.top - DensityUtil.dp2px(mContext, 20) + DensityUtil.dp2px(mContext, 2),
+                mOneRectF.top - DensityUtil.dp2px(mContext, 20) + mBigBoderMarginTop,
                 mOneRectF.right + mOneRectF.width() + mOneRectF.width() * 1 / 3,
                 mOneRectF.bottom + DensityUtil.dp2px(mContext, 20));
         mThreeRectF = new RectF(mTwoRectF.right,
-                DensityUtil.dp2px(mContext, 2),
+                mBigBoderMarginTop,
                 mScreenW - DensityUtil.dp2px(mContext, 20),
                 mTwoRectF.bottom + DensityUtil.dp2px(mContext, 20));
 
@@ -157,7 +168,7 @@ public class ImgVideoView extends View {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (w == -1) w = MeasureSpec.getSize(widthMeasureSpec);
         int newW = (int) (w * wRatio);
-        int newH = (int) (newW * hRatio);
+        int newH = (int) mViewH;
         setMeasuredDimension(newW, newH);
     }
 
@@ -844,6 +855,99 @@ public class ImgVideoView extends View {
         }
     }
 
+    /**
+     * 得到指定位置的图片
+     */
+    public PuzzlePiece findIndexPiece(int index) {
+        return mPuzzlePieces.get(index);
+    }
+
+    /***********************************************文件操作模块****************************************************/
+
+    public Bitmap createBitmap() {
+        mHandlingPiece = null;
+        //先保存之前边框的状态
+        boolean borderTemp = mNeedDrawBorder;
+        boolean outerBorderTemp = mNeedDrawOuterBorder;
+
+        //在创建图片的时候将边框隐藏
+        setNeedDrawBorder(false);
+        setNeedDrawOuterBorder(false);
+        invalidate();
+
+        Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        this.draw(canvas);
+
+        //将边框状态设置为原始状态
+        setNeedDrawBorder(borderTemp);
+        setNeedDrawOuterBorder(outerBorderTemp);
+        return bitmap;
+    }
+
+    public void save(File file) {
+        save(file, false, 100, null);
+    }
+
+    public void save(File file, boolean canScan, Callback callback) {
+        save(file, canScan, 100, callback);
+    }
+
+    public void save(File file, boolean canScan, int quality, Callback callback) {
+        Bitmap bitmap = null;
+        FileOutputStream outputStream = null;
+
+        try {
+            bitmap = createBitmap();
+            outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+
+            if (!file.exists()) {
+                Log.e(TAG, "notifySystemGallery: the file do not exist.");
+                return;
+            }
+
+            if (canScan) {
+                try {
+                    MediaStore.Images.Media.insertImage(getContext().getContentResolver(),
+                            file.getAbsolutePath(), file.getName(), null);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                getContext().sendBroadcast(
+                        new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file)));
+            }
+
+            if (callback != null) {
+                callback.onSuccess();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            if (callback != null) {
+                callback.onFailed();
+            }
+        } finally {
+            if (bitmap != null) {
+                bitmap.recycle();
+            }
+
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public interface Callback {
+        void onSuccess();
+
+        void onFailed();
+    }
+
+    /***********************************************自定义接口回调模块****************************************************/
     //选中
     private OnPieceSelectedListener mSelectedListener;
 

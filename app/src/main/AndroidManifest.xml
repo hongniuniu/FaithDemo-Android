@@ -59,6 +59,15 @@
             android:name=".activity.CustomActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".activity.CutVideoActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".activity.PlayVideoActivity"
+            android:screenOrientation="portrait"/>
+
         <receiver
             android:name=".recivier.LocalRecivier"
             android:exported="true">

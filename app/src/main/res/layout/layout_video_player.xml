@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/uvv_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:background="@android:color/black"
+    >
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:background="@android:color/black"
+      >
+
+    <com.universalvideoview.UniversalVideoView
+        android:id="@+id/uvv_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        app:uvv_autoRotation="false"
+        app:uvv_fitXY="false"
+        />
+
+    <ImageView
+        android:id="@+id/iv_watermark"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignBottom="@id/uvv_video_view"
+        android:layout_alignRight="@id/uvv_video_view"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_show_watermark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/uvv_video_view"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@id/uvv_video_view"
+        android:layout_marginBottom="19dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/ic_watermark_bg"
+        android:gravity="center"
+        android:maxLength="16"
+        android:maxLines="2"
+        android:maxWidth="115dp"
+        android:padding="5dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="13dp"
+        android:visibility="gone"
+        tools:text="11111111111111111111111"
+        />
+  </RelativeLayout>
+
+  <com.universalvideoview.UniversalMediaController
+      android:id="@+id/uvv_media_controller"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:visibility="visible"
+      app:uvv_scalable="false"
+      />
+</FrameLayout>

@@ -15,6 +15,7 @@ import com.faith.fd.activity.anim.SmallBallActivity;
 import com.faith.fd.activity.bitmap.LoadBitmapActivity;
 import com.faith.fd.activity.eventdistribute.EventDistributeActivity;
 import com.faith.fd.activity.memoryleak.MemoryActivity;
+import com.faith.fd.utils.PremissionUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        checkPermissions();
+    }
+
+    private void checkPermissions() {
+        PremissionUtils.checkAllPermissions(this, new PremissionUtils.Listener() {
+            @Override public void onGranted() {
+                Log.d(TAG,"权限已全部授予...");
+            }
+
+            @Override public void onDenied(String permission) {
+                Log.d(TAG,"有权限被拒绝...");
+            }
+        });
     }
 
     public void onDiDiClk(View v) {

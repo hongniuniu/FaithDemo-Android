@@ -1,6 +1,7 @@
 package com.faith.fd.activity.base;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,7 +23,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAct = this;
+        setContentView(getLayoutId());
+        handleIntent(getIntent());
+        initView();
+        initData();
     }
+
+    protected abstract int getLayoutId();
+
+    protected abstract void initView();
+
+    protected void initData(){}
+
+    protected void handleIntent(Intent intent){};
 
     public boolean checkPermission(@NonNull String permission) {
         return ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED;

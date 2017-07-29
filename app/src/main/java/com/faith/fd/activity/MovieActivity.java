@@ -8,8 +8,6 @@ import android.graphics.Color;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -72,11 +70,8 @@ public class MovieActivity extends BaseActivity implements PuzzleView.OnPieceSel
     private int handlingIndex; // 正在处理的view的索引
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie);
-        initView();
-        initData();
+    protected int getLayoutId() {
+        return R.layout.activity_movie;
     }
 
     /**
@@ -89,7 +84,8 @@ public class MovieActivity extends BaseActivity implements PuzzleView.OnPieceSel
         imagePicker.setImageLoader(new GlideImageLoader());
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
         bgBtn = (Button) findViewById(R.id.id_bgBtn);
         compoundClk = (Button) findViewById(R.id.id_compoundClk);
         txtBtn = (Button) findViewById(R.id.id_txtBtn);
@@ -127,7 +123,8 @@ public class MovieActivity extends BaseActivity implements PuzzleView.OnPieceSel
                 });
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         initImagePicker();
         contralBtnVis(View.GONE);
         mWaterMark.setText("再歪一点");
@@ -140,7 +137,6 @@ public class MovieActivity extends BaseActivity implements PuzzleView.OnPieceSel
         }
         // 为画布添加背景
         mPuzzleView.setBackgroundResource(R.mipmap.wx_red_package_dialog_bg);
-
     }
 
     /**

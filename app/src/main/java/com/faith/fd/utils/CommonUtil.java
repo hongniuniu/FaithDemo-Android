@@ -1,5 +1,10 @@
 package com.faith.fd.utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -36,5 +41,16 @@ public class CommonUtil {
         } catch (UnsupportedEncodingException e) {
             return "";
         }
+    }
+
+    /**
+     * 让Gallery上能马上看到该图片
+     */
+    public static void scanPhoto(Context ctx, File file) {
+        Intent mediaScanIntent = new Intent(
+                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(file);
+        mediaScanIntent.setData(contentUri);
+        ctx.sendBroadcast(mediaScanIntent);
     }
 }

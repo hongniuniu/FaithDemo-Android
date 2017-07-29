@@ -1,1 +1,1 @@
-include ':app', ':puzzle', ':mediapicker'
+include ':app', ':puzzle', ':mediapicker', ':ffmpeg', ':videotrimmer', ':rangeseekbar', ':universalvideoview', ':forwardcore'

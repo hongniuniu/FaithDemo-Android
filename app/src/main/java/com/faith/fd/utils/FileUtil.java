@@ -42,4 +42,14 @@ public class FileUtil {
         if (!file.exists() || !file.isFile()) file.mkdirs();
         return file;
     }
+
+    /**
+     * 遮罩图片存储，水印图片也放在里面哦
+     */
+    public static final File SD_APP_MASK_DIR() {
+        File file =
+                new File(SD_ROOT_DIR().getAbsolutePath() + File.separator + ".app_mask" + File.separator);
+        if (!file.exists() || !file.isDirectory()) file.mkdirs();
+        return file;
+    }
 }
