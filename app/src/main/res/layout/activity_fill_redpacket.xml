@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:id="@+id/id_bgClk"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:paddingTop="34dp">
+
+
+    <!--<com.faith.fd.widget.FillRedPacketAnimView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="32dp"/>-->
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark"/>
+
+    <View
+        android:id="@+id/id_ovalV"
+        android:layout_width="7dp"
+        android:layout_height="5dp"
+        android:background="@drawable/qq_fill_redpacket_bg"/>
+
+
+</FrameLayout>
+
+

@@ -1,1 +1,2 @@
-include ':app', ':puzzle', ':mediapicker', ':ffmpeg', ':videotrimmer', ':rangeseekbar', ':universalvideoview', ':forwardcore'
+//include ':app', ':puzzle', ':mediapicker', ':ffmpeg', ':videotrimmer', ':rangeseekbar', ':universalvideoview', ':forwardcore'
+include ':app', ':puzzle', ':videotrimmer', ':rangeseekbar'

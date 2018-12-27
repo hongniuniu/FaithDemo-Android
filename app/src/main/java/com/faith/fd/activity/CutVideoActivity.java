@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import com.faith.fd.R;
 import com.faith.fd.activity.base.BaseActivity;
 import com.faith.fd.bean.VideoItem;
+import com.faith.fd.utils.Constanst;
 
 import life.knowledge4.videotrimmer.K4LVideoTrimmer;
 import life.knowledge4.videotrimmer.interfaces.OnK4LVideoListener;
@@ -27,13 +28,6 @@ public class CutVideoActivity extends BaseActivity implements OnTrimVideoListene
     private static final String TAG = "CutVideoActivity";
     private VideoItem mVideoItem;
     private K4LVideoTrimmer mVideoTrimmer;
-
-
-//    @Override
-//    protected void attachBaseContext(Context newBase) {
-//        super.attachBaseContext(newBase);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//    }
 
     @Override
     protected void handleIntent(Intent intent) {
@@ -55,6 +49,7 @@ public class CutVideoActivity extends BaseActivity implements OnTrimVideoListene
     @Override
     protected void initView() {
         mVideoTrimmer = (K4LVideoTrimmer) findViewById(R.id.video_trimmer);
+        mVideoTrimmer.setAppDir(Constanst.APP_DIR);
         mVideoTrimmer.setMaxDuration(15);
         mVideoTrimmer.setOnTrimVideoListener(this);
         mVideoTrimmer.setOnK4LVideoListener(this);

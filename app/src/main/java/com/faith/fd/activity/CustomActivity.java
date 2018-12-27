@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,7 +31,6 @@ import com.faith.fd.utils.FileUtil;
 import com.faith.fd.utils.UiHelper;
 import com.faith.fd.utils.VideoProgressUtils;
 import com.faith.fd.utils.WaterMarkUtils;
-import com.faith.fd.widget.ImgVideoView;
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
@@ -38,6 +38,7 @@ import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.xiaopo.flying.puzzle.Border;
+import com.xiaopo.flying.puzzle.ImgVideoPuzzleView;
 import com.xiaopo.flying.puzzle.PuzzlePiece;
 
 import java.io.File;
@@ -59,17 +60,18 @@ import vn.tungdx.mediapicker.utils.MediaUtils;
  * @autor hongbing
  * @date 2017/7/27
  */
-public class CustomActivity extends BaseActivity {
+public class CustomActivity extends BaseActivity implements ImgVideoPuzzleView.OnPieceSelectedListener{
 
     private static final String TAG = "CustomActivity";
     
     private static final int SELECT_IMG = 0X001; // 选择图片
     public static final int CUT_VIDEO = 0X002; // 裁剪视频
-    private static final int SELECT_VIDEO = 0x003; // 选择图片
+    private static final int SELECT_VIDEO = 0x003; // 选择视频
 
-    private ImgVideoView mIvv;
+    private ImgVideoPuzzleView mIvv;
     private RelativeLayout rlContent; // 被保存被bitmao的视图对象
     private TextView mTvMark;
+    private Button mBtn;
 
     private ImagePicker imagePicker;
     private int handlingIndex = -1; // 正在处理的border的索引
@@ -91,14 +93,17 @@ public class CustomActivity extends BaseActivity {
         // 制作视频的进度条对话框
         mProgressDialog = UiHelper.createVideoProgressDialog(mAct);
         rlContent = (RelativeLayout) findViewById(R.id.rl_content);
-        mIvv = (ImgVideoView) findViewById(R.id.id_ivv);
+        mIvv = (ImgVideoPuzzleView) findViewById(R.id.id_ivv);
         mIvv.setSelectedBorderColor(Color.BLUE);
+        mIvv.setSelectedListener(this);
         for (int i = 0; i < mIvv.getBorderSize(); i++) {
             mPuzzlebeen.add(Puzzlebean.defa(i));
             mIvv.addPiece(BitmapFactory.decodeResource(getResources(), R.mipmap.template_default_img));
         }
         mIvv.setBackgroundResource(R.mipmap.wx_red_package_dialog_bg);
         mTvMark = (TextView) findViewById(R.id.tv_show_watermark);
+        mBtn = (Button) findViewById(R.id.id_bgBtn);
+        mBtn.setText("导入图片");
     }
 
     @Override
@@ -170,7 +175,7 @@ public class CustomActivity extends BaseActivity {
             compoundImg(file);
             return;
         }
-        mIvv.save(baseImage, noVideo, new ImgVideoView.Callback() {
+        mIvv.save(baseImage, noVideo, new ImgVideoPuzzleView.Callback() {
             @Override
             public void onSuccess() {
                 createVideo(baseImage);
@@ -358,8 +363,8 @@ public class CustomActivity extends BaseActivity {
             Log.d(TAG,"模块区域 = " + rfBase.toString());
             // 缩放倍数
             float sl = mIvv.findIndexScale(index);
+//            float sl = 1.f;
             Log.d(TAG,"缩放倍数 = " + sl);
-//            sl = 2.2f;
 
             // 视频区域，用于裁剪、缩放等，模块相对于帧图片的块区域
             RectF rfframe = findPieceRectF2Frame(index);
@@ -417,9 +422,13 @@ public class CustomActivity extends BaseActivity {
         // 添加水印图片
         if (WaterMarkUtils.isPuzzleOpen()) {
             String watermarkPath = WaterMarkUtils.getWatermarkPath(false, mTvMark);
+            // 配置水印位置
+//            String watermark = "movie="
+//                    + watermarkPath
+//                    + "[wm];[wm]scale=iw/2:-1[wm2];[scale][wm2]overlay=main_w-overlay_w-10:main_h-overlay_h-10[result];";
             String watermark = "movie="
                     + watermarkPath
-                    + "[wm];[wm]scale=iw/2:-1[wm2];[scale][wm2]overlay=main_w-overlay_w-10:main_h-overlay_h-10[result];";
+                    + "[wm];[wm]scale=iw/2:-1[wm2];[scale][wm2]overlay=main_w / 2-overlay_w / 2:main_h-overlay_h-10[result];";
             sbfilter.append(watermark);
         }
 
@@ -460,6 +469,13 @@ public class CustomActivity extends BaseActivity {
         String[] cmd = cmds.toArray(new String[cmds.size()]);
         System.out.println(Arrays.toString(cmd));
         handleVideo(baseImage, new File(output), cmd);
+    }
+
+    @Override
+    public void onPieceSelected(PuzzlePiece piece, int index) {
+        handlingIndex = index;
+        Log.d(TAG,"当前选中border的索引值 = " + index);
+        mBtn.setText((index>=0 && index < 2) ? "导入图片" : "导入视频");
     }
 
     class CompareDuration implements Comparator<VideoItem> {

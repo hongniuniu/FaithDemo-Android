@@ -31,6 +31,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -84,6 +85,7 @@ public class K4LVideoTrimmer extends FrameLayout {
     private ProgressBarView mVideoProgressIndicator;
     private Uri mSrc;
     private String mFinalPath;
+    private String mAppDir; // 项目目录
 
     private int mMaxDuration;
     private List<OnProgressVideoListener> mListeners;
@@ -317,10 +319,18 @@ public class K4LVideoTrimmer extends FrameLayout {
         }
     }
 
+    public void setAppDir(String appDir){
+        mAppDir = appDir;
+    }
+
     private String getDestinationPath() {
+        if (TextUtils.isEmpty(mAppDir)) {
+            throw new NullPointerException("请配置项目目录...");
+        }
+
         if (mFinalPath == null) {
             File folder = Environment.getExternalStorageDirectory();
-            mFinalPath = folder.getPath() + "/ZGSP/.app_temp/";
+            mFinalPath = folder.getPath() + "/" + mAppDir + "/.app_temp/";
             Log.d(TAG, "Using default path " + mFinalPath);
         }
         return mFinalPath;

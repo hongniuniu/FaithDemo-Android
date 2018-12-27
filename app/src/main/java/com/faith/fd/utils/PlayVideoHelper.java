@@ -179,5 +179,6 @@ public class PlayVideoHelper implements UniversalVideoView.VideoViewCallback {
 
   public void onDestroy() {
     mUvvVideoView.onDestroy();
+    mUvvVideoView.stopPlayback();
   }
 }

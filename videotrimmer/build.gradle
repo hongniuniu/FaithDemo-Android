@@ -26,5 +26,8 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.3.1'
-    compile project(':ffmpeg')
+//    compile project(':ffmpeg')
+    compile ('com.ylian:ffmpeg:0.1@aar') { transitive = true }
 }
+
+apply from: './upload.gradle'

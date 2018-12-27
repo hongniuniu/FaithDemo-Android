@@ -9,8 +9,8 @@ public class WvConfig {
   public static final int SCAN_PER_COUNT_FIND_USER = 20;
 
   public static final String LOGNAME = "WXVIDEO";
-  public static final String START_STATUS_FAILED = "ren.helloworld.zgsp.failed";
-  public static final String START_STATUS_SUECCESS = "ren.helloworld.zgsp.success";
+  public static final String START_STATUS_FAILED = "com.colordish.wai.failed";
+  public static final String START_STATUS_SUECCESS = "com.colordish.wai.success";
 
   public static boolean ISDEGBUG = false;
 }

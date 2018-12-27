@@ -11,9 +11,9 @@ import com.faith.fd.activity.DiDiActivity;
 import com.faith.fd.activity.MovieActivity;
 import com.faith.fd.activity.PropAnimActivity;
 import com.faith.fd.activity.ScrollViewActivity;
+import com.faith.fd.activity.anim.FillRedPacketActivity;
 import com.faith.fd.activity.anim.SmallBallActivity;
 import com.faith.fd.activity.bitmap.LoadBitmapActivity;
-import com.faith.fd.activity.eventdistribute.EventDistributeActivity;
 import com.faith.fd.activity.memoryleak.MemoryActivity;
 import com.faith.fd.utils.PremissionUtils;
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermissions();
+//        checkPermissions();
     }
 
     private void checkPermissions() {
@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEventClk(View v) {
-        startActivity(new Intent(this, EventDistributeActivity.class));
+//        startActivity(new Intent(this, EventDistributeActivity.class));
+        startActivity(new Intent(this, FillRedPacketActivity.class));
     }
 
 

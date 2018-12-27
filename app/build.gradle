@@ -38,10 +38,20 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.anthonycr.grant:permissions:1.0'
     compile 'org.xutils:xutils:3.3.36'
-    compile project(':puzzle')
-    compile project(':mediapicker')
-    compile project(':videotrimmer')
+//    compile project(':puzzle')
+//    compile ('com.ylian:puzzle:0.1@aar') { transitive = true }
+    compile ('ren.helloworld:puzzle:1.1@aar') { transitive = true }
+//    compile project(':mediapicker')
+//    compile ('com.ylian:mediapicker:0.1@aar') { transitive = true }
+    compile ('ren.helloworld:mediapicker:1.0@aar') { transitive = true }
+//    compile project(':videotrimmer')
+//    compile ('com.ylian:videotrimmer:0.1@aar') { transitive = true }
+    compile ('ren.helloworld:videotrimmer:1.1@aar') { transitive = true }
     compile project(':rangeseekbar')
-    compile project(':universalvideoview')
-    compile project(':forwardcore')
+//    compile project(':universalvideoview')
+//    compile ('com.ylian:universalvideoview:0.1@aar') { transitive = true }
+    compile ('ren.helloworld:universalvideoview:1.0@aar') { transitive = true }
+//    compile project(':forwardcore')
+//    compile ('com.ylian:forwarcore:0.1@aar') { transitive = true }
+    compile ('ren.helloworld:forwardcore:1.0@aar') { transitive = true }
 }

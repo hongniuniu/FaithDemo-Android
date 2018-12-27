@@ -36,6 +36,10 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".activity.anim.FillRedPacketActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".activity.memoryleak.MemoryActivity"
             android:screenOrientation="portrait"/>
 

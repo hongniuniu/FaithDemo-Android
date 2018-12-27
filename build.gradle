@@ -15,6 +15,18 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url 'http://localhost:8081/repository/android-ylian/'
+        }
+        maven {
+            url 'http://faith.viphk.ngrok.org/repository/android-ylian/'
+        }
+        maven {
+            url "http://192.168.3.222:8081/repository/android/"
+        }
+        maven {
+            url "http://nexus.dafan.viphk.ngrok.org/repository/android/"
+        }
     }
 }
 

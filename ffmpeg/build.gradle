@@ -33,3 +33,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
+apply from: './upload.gradle'
+

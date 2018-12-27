@@ -1,0 +1,36 @@
+apply plugin: 'maven'
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def repurl = properties.getProperty("maven.repurl", "")
+def userName = properties.getProperty("maven.userName", "")
+def password = properties.getProperty("maven.password", "")
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: repurl) {
+            authentication(userName: userName, password: password)
+        }
+        pom.version = "0.1"
+        pom.artifactId = "universalvideoview"
+        pom.groupId = "com.ylian"
+    }
+}
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    options.encoding = "UTF-8"
+}
+task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+    classifier = 'javadoc'
+    from androidJavadocs.destinationDir
+}
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.sourceFiles
+}
+artifacts {
+    archives androidSourcesJar
+    // archives androidJavadocsJar
+}
